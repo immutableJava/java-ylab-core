@@ -1,46 +1,48 @@
 package homework.task1;
 
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
-        int[] ints = {2, 5, 1, 6, 4, 5, 2, 8};
-        double[] testArr = returnMaxMinAvgValues(ints);
-        test((int) testArr[0] == 8);
-        test((int) testArr[1] == 1);
-        test(testArr[2] == 4.125);
+        int[][] ints = new int[3][3];
+        returnMaxMinAvgValues(ints);
     }
 
-    public static double[] returnMaxMinAvgValues(int[] ints) {
-        double[] result = new double[3];
-        int min = ints[0];
-        int max = ints[0];
-        for (int i : ints) {
-            if (i < min) {
-                min = i;
+    public static void returnMaxMinAvgValues(int[][] ints) {
+        for (int i = 0; i < ints.length; i++) {
+            for (int j = 0; j < ints[0].length; j++) {
+                ints[i][j] = (int) (Math.random() * Integer.MAX_VALUE);
             }
-            if (i > max) {
-                max = i;
+        }
+        System.out.println("Массив: " + Arrays.deepToString(ints));
+        int max = ints[0][0];
+        for (int[] anInt : ints) {
+            for (int j = 0; j < ints[0].length; j++) {
+                if (anInt[j] > max) {
+                    max = anInt[j];
+                }
+            }
+        }
+        int min = ints[0][0];
+        for (int[] anInt : ints) {
+            for (int j = 0; j < ints[0].length; j++) {
+                if (anInt[j] < min) {
+                    min = anInt[j];
+                }
             }
         }
 
         double avg = 0;
-        for (int i : ints) {
-            avg += i;
+        for (int[] anInt : ints) {
+            for (int j = 0; j < ints[0].length; j++) {
+
+                avg += anInt[j];
+
+            }
         }
-        avg = avg / ints.length;
-        result[0] = max;
-        result[1] = min;
-        result[2] = avg;
+        avg = avg / (ints.length * ints[0].length);
         System.out.println("Максимальное значение - " + max);
         System.out.println("Минимальное значение - " + min);
         System.out.println("Среднее значение - " + avg);
-        return result;
-    }
-
-    public static void test(boolean flag) {
-        if (!flag) {
-            throw new RuntimeException("Тест провален.");
-        } else {
-            System.out.println("Тест пройден.");
-        }
     }
 }
